@@ -1,17 +1,13 @@
-# "React Login Authentication with JWT Access, Refresh Tokens, Cookies and Axios"
+# React Login Authentication with JWT Access, Refresh Tokens, Cookies and Axios
+## Initially based on a tutorial made by Dave Gray, but customized for my needs
 
-✅ [Check out my YouTube Channel with all of my tutorials](https://www.youtube.com/DaveGrayTeachesCode).
+✅ [Tutorials by Dave Gray](https://www.youtube.com/DaveGrayTeachesCode).
 
 **Description:**
 
-This repository shares the code applied during the [YouTube Tutorial](https://youtu.be/nI8PYZNFtac). 
+This repository shares the code applied by Dave Gray during the [YouTube Tutorial](https://youtu.be/nI8PYZNFtac). 
 
-Build the backend REST API that I use for authentication in this tutorial with my [7 hour Node JS for Beginners course](https://youtu.be/f2EqECiTBL8) on my channel.
+Build the backend REST API that is used for authentication in this tutorial with Dave Gray's [7 hour Node JS for Beginners course](https://youtu.be/f2EqECiTBL8) on his channel.
 
-Just starting with React? I have a [9 hour React course tutorial video](https://youtu.be/RVFAyFWO4go) on my channel.  
+Just starting with React? [9 hour React course tutorial video by Dave Grat](https://youtu.be/RVFAyFWO4go) 
 
-I suggest completing my [8 hour JavaScript course tutorial video](https://youtu.be/EfAl9bwzVZk) before attempting React if you are new to Javascript.
-
-### Academic Honesty
-
-**DO NOT COPY FOR AN ASSIGNMENT** - Avoid plagiargism and adhere to the spirit of this [Academic Honesty Policy](https://www.freecodecamp.org/news/academic-honesty-policy/).
