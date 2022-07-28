@@ -3,15 +3,17 @@ import useAuth from '../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import axios from '../api/axios';
-const LOGIN_URL = '/auth';
+const LOGIN_URL = '/user/login'; // login endpoint in backend nodejs api
 
 const Login = () => {
     const { setAuth } = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
+    // navigate to the location where the user wanted to go before they were sent to the login page OR the home page
     const from = location.state?.from?.pathname || "/";
 
+    // set focus on user input and error message
     const userRef = useRef();
     const errRef = useRef();
 
@@ -19,20 +21,23 @@ const Login = () => {
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
 
+    // when component loads set focus on first input field / user field
     useEffect(() => {
         userRef.current.focus();
     }, [])
 
+    // make error message disapear when ajusting fields 
     useEffect(() => {
         setErrMsg('');
     }, [user, pwd])
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // prevent default behavior of the page which would reload of the page
 
         try {
+            // post login file to backend api
             const response = await axios.post(LOGIN_URL,
-                JSON.stringify({ user, pwd }),
+                JSON.stringify({ email: user, password: pwd }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
@@ -41,16 +46,21 @@ const Login = () => {
             console.log(JSON.stringify(response?.data));
             //console.log(JSON.stringify(response));
             const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            setAuth({ user, pwd, roles, accessToken });
+            const role = response?.data?.idRole;
+            console.log(role);
+            // auth state stored in our global context with the usecontext hook :
+            setAuth({ user, pwd, role, accessToken }); 
+
+            // clear components after submit complete
             setUser('');
-            setPwd('');
+            setPwd(''); 
+            // after the form is submited, navigate to the location where the user wanted to go before they were sent to the login page
             navigate(from, { replace: true });
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
             } else if (err.response?.status === 400) {
-                setErrMsg('Missing Username or Password');
+                setErrMsg('Missing Email or Password');
             } else if (err.response?.status === 401) {
                 setErrMsg('Unauthorized');
             } else {
@@ -66,14 +76,14 @@ const Login = () => {
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1>Sign In</h1>
             <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username:</label>
+                <label htmlFor="email">Email:</label>
                 <input
                     type="text"
-                    id="username"
-                    ref={userRef}
-                    autoComplete="off"
-                    onChange={(e) => setUser(e.target.value)}
-                    value={user}
+                    id="email"
+                    ref={userRef} // ref to set focus on this input
+                    autoComplete="off" // not fill input with past entries
+                    onChange={(e) => setUser(e.target.value)} // function to set user state
+                    value={user} // user state in value
                     required
                 />
 

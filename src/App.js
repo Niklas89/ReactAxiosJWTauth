@@ -12,9 +12,9 @@ import RequireAuth from './components/RequireAuth';
 import { Routes, Route } from 'react-router-dom';
 
 const ROLES = {
-  'User': 2001,
-  'Editor': 1984,
-  'Admin': 5150
+  'Client': 1,
+  'Admin': 2,
+  'Sales': 3
 }
 
 function App() {
@@ -29,11 +29,11 @@ function App() {
         <Route path="unauthorized" element={<Unauthorized />} />
 
         {/* we want to protect these routes */}
-        <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+        <Route element={<RequireAuth allowedRoles={[ROLES.Client]} />}>
           <Route path="/" element={<Home />} />
         </Route>
 
-        <Route element={<RequireAuth allowedRoles={[ROLES.Editor]} />}>
+        <Route element={<RequireAuth allowedRoles={[ROLES.Client]} />}>
           <Route path="editor" element={<Editor />} />
         </Route>
 
@@ -42,7 +42,7 @@ function App() {
           <Route path="admin" element={<Admin />} />
         </Route>
 
-        <Route element={<RequireAuth allowedRoles={[ROLES.Editor, ROLES.Admin]} />}>
+        <Route element={<RequireAuth allowedRoles={[ROLES.Sales, ROLES.Admin]} />}>
           <Route path="lounge" element={<Lounge />} />
         </Route>
 
