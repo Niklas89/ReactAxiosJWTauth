@@ -46,6 +46,7 @@ const Login = () => {
             console.log(JSON.stringify(response?.data));
             //console.log(JSON.stringify(response));
             const accessToken = response?.data?.accessToken;
+            console.log(accessToken);
             const role = response?.data?.idRole;
             console.log(role);
             // auth state stored in our global context with the usecontext hook :

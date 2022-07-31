@@ -13,7 +13,6 @@ const Users = () => {
     // useEffect when component loads
     useEffect(() => {
         let isMounted = true;
-
         // cancel our request if the component unmounts
         const controller = new AbortController();
 
@@ -25,7 +24,8 @@ const Users = () => {
                 console.log(response.data);
                 isMounted && setUsers(response.data);
             } catch (err) {
-                console.error(err);
+                console.error(err); 
+                // if refresh token has expired, logout to login. Redirect to current page after login
                 navigate('/login', { state: { from: location }, replace: true });
             }
         }
@@ -37,6 +37,8 @@ const Users = () => {
             isMounted = false;
             controller.abort(); // cancel any request that we have pending when the component unmounts
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
