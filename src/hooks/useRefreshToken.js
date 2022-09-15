@@ -18,7 +18,10 @@ const useRefreshToken = () => {
             // accesstoken that we get back after our refresh token is verified
             console.log(response.data.accessToken); 
             // return the previous state and override the accesstoken with the new accesstoken
-            return { ...prev, accessToken: response.data.accessToken }
+            return { 
+                ...prev, 
+                role: response.data.idRole, // we add role for the PersistLogin function, we get it at login normally
+                accessToken: response.data.accessToken }
         });
         return response.data.accessToken;
     }

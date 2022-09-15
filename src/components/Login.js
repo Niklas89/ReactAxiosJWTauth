@@ -6,7 +6,7 @@ import axios from '../api/axios';
 const LOGIN_URL = '/user/login'; // login endpoint in backend nodejs api
 
 const Login = () => {
-    const { setAuth } = useAuth();
+    const { setAuth, persist, setPersist } = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -71,6 +71,14 @@ const Login = () => {
         }
     }
 
+    const togglePersist = () => {
+        setPersist(prev => !prev);
+    }
+
+    useEffect(() => { // store the persist state in localstorage 
+        localStorage.setItem("persist", persist); // when the persist state changes that's when we want to store it in the localstorage
+    }, [persist]) // [persist] : listen to when the persist state changes
+
     return (
 
         <section>
@@ -97,6 +105,15 @@ const Login = () => {
                     required
                 />
                 <button>Sign In</button>
+                <div className="persistCheck">
+                    <input
+                        type="checkbox"
+                        id="persist"
+                        onChange={togglePersist}
+                        checked={persist}
+                    />
+                    <label htmlFor="persist">Trust This Device</label>
+                </div>
             </form>
             <p>
                 Need an Account?<br />

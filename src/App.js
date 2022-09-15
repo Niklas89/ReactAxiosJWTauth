@@ -9,6 +9,7 @@ import Unauthorized from './components/Unauthorized';
 import Lounge from './components/Lounge';
 import LinkPage from './components/LinkPage';
 import RequireAuth from './components/RequireAuth';
+import PersistLogin from './components/PersistLogin';
 import { Routes, Route } from 'react-router-dom';
 
 const ROLES = {
@@ -21,6 +22,8 @@ function App() {
 
   return (
     <Routes>
+      {/* our Layout and our Persist component both make use of that Outlet which represents the children 
+      (routes and components)  */}
       <Route path="/" element={<Layout />}>
         {/* public routes */}
         <Route path="login" element={<Login />} />
@@ -29,21 +32,23 @@ function App() {
         <Route path="unauthorized" element={<Unauthorized />} />
 
         {/* we want to protect these routes */}
-        <Route element={<RequireAuth allowedRoles={[ROLES.Client]} />}>
-          <Route path="/" element={<Home />} />
-        </Route>
+        <Route element={<PersistLogin />}>
+          <Route element={<RequireAuth allowedRoles={[ROLES.Client]} />}>
+            <Route path="/" element={<Home />} />
+          </Route>
 
-        <Route element={<RequireAuth allowedRoles={[ROLES.Client]} />}>
-          <Route path="editor" element={<Editor />} />
-        </Route>
+          <Route element={<RequireAuth allowedRoles={[ROLES.Client]} />}>
+            <Route path="editor" element={<Editor />} />
+          </Route>
 
 
-        <Route element={<RequireAuth allowedRoles={[ROLES.Client]} />}>
-          <Route path="admin" element={<Admin />} />
-        </Route>
+          <Route element={<RequireAuth allowedRoles={[ROLES.Client]} />}>
+            <Route path="admin" element={<Admin />} />
+          </Route>
 
-        <Route element={<RequireAuth allowedRoles={[ROLES.Sales, ROLES.Admin]} />}>
-          <Route path="lounge" element={<Lounge />} />
+          <Route element={<RequireAuth allowedRoles={[ROLES.Sales, ROLES.Admin]} />}>
+            <Route path="lounge" element={<Lounge />} />
+          </Route>
         </Route>
 
         {/* catch all */}
